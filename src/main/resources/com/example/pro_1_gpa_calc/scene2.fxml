@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pro_1_gpa_calc.HelloController">
+   <children>
+      <TextField layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="142.0" promptText="Course Name" />
+      <TextField layoutX="170.0" layoutY="13.0" prefHeight="26.0" prefWidth="84.0" promptText="Course Code " />
+      <TextField layoutX="269.0" layoutY="14.0" prefHeight="26.0" prefWidth="102.0" promptText="Course Credit" />
+      <TextField layoutX="386.0" layoutY="14.0" prefHeight="26.0" prefWidth="186.0" promptText="Teacher 1 Name " />
+      <TextField layoutX="583.0" layoutY="14.0" prefHeight="26.0" prefWidth="197.0" promptText="Teacher 1 Name " />
+      <ChoiceBox fx:id="mychoicebox" layoutX="795.0" layoutY="15.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
