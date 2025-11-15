@@ -40,6 +40,6 @@ public class HelloController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources)
     {
-       // mychoicebox.getItems().addAll("Option 1", "Option 2", "Option 3");
+        //mychoicebox.getItems().addAll("Option 1", "Option 2", "Option 3");
     }
 }

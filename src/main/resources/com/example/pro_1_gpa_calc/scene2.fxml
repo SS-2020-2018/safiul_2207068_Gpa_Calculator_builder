@@ -7,8 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.VBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pro_1_gpa_calc.HelloController">
    <children>
+      <VBox fx:id="containerVBox" layoutX="14" layoutY="50" spacing="5" prefWidth="900" prefHeight="500" />
+      <Button text="NEW"  layoutX="371" layoutY="416" />
       <TextField layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="142.0" promptText="Course Name" />
       <TextField layoutX="170.0" layoutY="13.0" prefHeight="26.0" prefWidth="84.0" promptText="Course Code " />
       <TextField layoutX="269.0" layoutY="14.0" prefHeight="26.0" prefWidth="102.0" promptText="Course Credit" />
@@ -20,6 +23,15 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="lable" layoutX="801.0" layoutY="18.0" prefHeight="18.0" prefWidth="56.0" text="Label" />
+      <Button layoutX="371.0" layoutY="416.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="66.0" text="NEW">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="254.0" layoutY="416.0" prefHeight="42.0" prefWidth="102.0" text="Add new course">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
