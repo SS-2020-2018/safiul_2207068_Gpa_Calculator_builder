@@ -35,6 +35,13 @@ public class HelloController {
         stage.setScene(scene);
         stage.show();
     }
+    public void switchToScene3(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("Scen3.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
    @FXML
     private VBox courseVBox;
 
