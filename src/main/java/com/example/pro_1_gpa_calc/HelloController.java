@@ -7,17 +7,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.fxml.Initializable;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+
+public class HelloController {
 
 
     private Stage stage;
@@ -38,14 +35,6 @@ public class HelloController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
-    @FXML
-    private ChoiceBox<String> mychoicebox=new ChoiceBox<>();
-
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        mychoicebox.getItems().addAll("A+","A","A-","B+","B","B-","C","F");
-    }
    @FXML
     private VBox courseVBox;
 
@@ -54,14 +43,17 @@ public class HelloController implements Initializable {
         HBox courseRow = new HBox(15);
         TextField name = new TextField();
         name.setPromptText("Course Name");
+        name.setPrefWidth(150);
         TextField code = new TextField();
         code.setPromptText("Course Code");
         TextField credit=new TextField();
         credit.setPromptText("Credit");
         TextField t1=new TextField();
         t1.setPromptText("Teacher 1 name");
+        t1.setPrefWidth(200);
         TextField t2=new TextField();
         t2.setPromptText("Teacher 2 name");
+        t2.setPrefWidth(200);
         ChoiceBox<String>choiceBox=new ChoiceBox<>();
         choiceBox.getItems().addAll("A+","A","A-","B+","B","B-","C","F");
         courseRow.getChildren().addAll(name, code ,credit,t1,t2,choiceBox);
@@ -69,20 +61,6 @@ public class HelloController implements Initializable {
         VBox.setMargin(courseRow, new Insets(10, 0, 10, 0));
     }
 
-    @FXML
-    private Button addButton;
 
-    @FXML
-    private Button doneButton;
-    private void handleDoneButton(ActionEvent event) {
-        addButton.setDisable(true);
-        doneButton.setDisable(true);
-        for (Node node : courseVBox.getChildren()) {
-            if (node instanceof HBox) {
-                HBox row = (HBox) node;
-                row.getChildren().forEach(child -> child.setDisable(true));
-            }
-        }
-    }
 
 }
