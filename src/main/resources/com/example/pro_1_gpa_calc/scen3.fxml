@@ -21,12 +21,12 @@
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutX="358.0" layoutY="54.0" prefHeight="90.0" prefWidth="150.0" text="Here">
+            <Label fx:id="here" alignment="CENTER" layoutX="358.0" layoutY="54.0" prefHeight="90.0" prefWidth="150.0">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="348.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchToScene2" prefHeight="43.0" prefWidth="153.0" text="Calculate Again">
+            <Button alignment="CENTER" layoutX="348.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchtoscene2" prefHeight="43.0" prefWidth="153.0" text="Calculate Again">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

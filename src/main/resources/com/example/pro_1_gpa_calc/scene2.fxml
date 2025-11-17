@@ -10,8 +10,8 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pro_1_gpa_calc.HelloController">
-   <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="1000.0">
+   <bottom>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children> 
             <HBox layoutY="-8.0" prefHeight="46.0" prefWidth="984.0">
                <children>
@@ -24,12 +24,12 @@
                      </font>
                   </Label>
                </children></HBox>
-            <Button layoutX="21.0" layoutY="553.0" mnemonicParsing="false" onAction="#switchToScene1" text="pre">
+            <Button layoutX="21.0" layoutY="553.0" mnemonicParsing="false" onAction="#switchtoscene1" text="pre">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="addButton" layoutX="351.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleNewButton" prefHeight="42.0" prefWidth="66.0" text="NEW">
+            <Button layoutX="351.0" layoutY="510.0" mnemonicParsing="false" onAction="#newbutton" prefHeight="42.0" prefWidth="66.0" text="NEW">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -41,14 +41,10 @@
             </Label>
             <VBox fx:id="courseVBox" layoutX="-4.0" layoutY="38.0">
                <children>
-                  <HBox prefHeight="36.0" prefWidth="932.0" spacing="15.0">
-                     <padding>
-                        <Insets right="10.0" />
-                     </padding>
-                  </HBox>
+                  <VBox prefHeight="36.0" prefWidth="932.0" />
                </children>
             </VBox>
-            <Button fx:id="done" layoutX="424.0" layoutY="510.0" mnemonicParsing="false" onAction="#switchToScene3" prefHeight="42.0" prefWidth="75.0" text="Done">
+            <Button layoutX="424.0" layoutY="510.0" mnemonicParsing="false" onAction="#switchtoscene3" prefHeight="42.0" prefWidth="75.0" text="Done">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -56,5 +52,5 @@
       
          </children>
       </AnchorPane>
-   </center>
+   </bottom>
 </BorderPane>
