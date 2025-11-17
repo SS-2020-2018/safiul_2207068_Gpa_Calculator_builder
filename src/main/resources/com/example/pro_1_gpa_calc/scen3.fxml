@@ -31,6 +31,8 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
+            <Button layoutX="21.0" layoutY="408.0" mnemonicParsing="false" onAction="#switchToScene2" text="pre" />
+            <Button layoutX="373.0" layoutY="378.0" mnemonicParsing="false" onAction="#switchToScene1" prefHeight="43.0" prefWidth="122.0" text="go 1st page" />
          </children>
       </AnchorPane>
    </center>
