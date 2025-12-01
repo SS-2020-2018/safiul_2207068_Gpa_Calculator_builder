@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.project1.HelloNEWController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project1.HelloNEWController">
 
     <children>
-        <VBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"
-              AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+        <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
 
             <Label text="All Records" />
 
             <ListView fx:id="sampleListView" prefHeight="280.0" />
 
             <HBox spacing="10.0">
-                <Button text="Recalculate CGPA" onAction="#onCalculateScene3" />
+                <Button onAction="#onCalculateScene3" text="Calculate CGPA" />
                 <Label text="CGPA:" />
                 <Label fx:id="cgpaLabel" style="-fx-font-weight: bold;" text="0.00" />
                 <Pane HBox.hgrow="ALWAYS" />
-                <Button text="Close" onAction="#switchToScene2" />
+                <Button onAction="#switchToScene2" text="Close" />
             </HBox>
         </VBox>
     </children>
