@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.project1.HelloNEWController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <VBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"
+              AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+
+            <Label text="All Records" />
+
+            <ListView fx:id="sampleListView" prefHeight="280.0" />
+
+            <HBox spacing="10.0">
+                <Button text="Recalculate CGPA" onAction="#onCalculateScene3" />
+                <Label text="CGPA:" />
+                <Label fx:id="cgpaLabel" style="-fx-font-weight: bold;" text="0.00" />
+                <Pane HBox.hgrow="ALWAYS" />
+                <Button text="Close" onAction="#switchToScene2" />
+            </HBox>
+        </VBox>
+    </children>
+
+</AnchorPane>

@@ -1,22 +1,21 @@
 package org.example.project1;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class HelloNEWController {
-
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -24,6 +23,58 @@ public class HelloNEWController {
     private VBox courseVBox;
     @FXML
     private Label gpaLabel;
+    @FXML
+    private TextField courseNameField;
+    @FXML
+    private TextField courseCreditField;
+    @FXML
+    private TextField rollField;
+    @FXML
+    private TextField teacher1Field;
+    @FXML
+    private TextField teacher2Field;
+    @FXML
+    private ChoiceBox<String> gradeChoiceBox;
+    @FXML
+    private ListView<String> sampleListView;
+    @FXML
+    private Label cgpaLabel;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button searchbutton;
+
+    private ObservableList<String> observableRecords = FXCollections.observableArrayList();
+    private DatabaseHelper dbHelper = new DatabaseHelper();
+
+    @FXML
+    private void initialize() {
+        if (gradeChoiceBox != null && gradeChoiceBox.getItems().isEmpty()) {
+            gradeChoiceBox.getItems().addAll("A+","A","A-","B+","B","B-","C","F");
+            gradeChoiceBox.setValue("A");
+        }
+        if (sampleListView != null) {
+            sampleListView.setItems(observableRecords);
+            loadAllData();
+        }
+    }
+
+    private void loadRollData(String roll) {
+        new Thread(() -> {
+            ObservableList<String> list = dbHelper.getRecordsByRoll(roll);
+            Platform.runLater(() -> observableRecords.setAll(list));
+        }).start();
+    }
+
+    private void loadAllData() {
+        new Thread(() -> {
+            ObservableList<String> list = dbHelper.getAllRecords();
+            Platform.runLater(() -> observableRecords.setAll(list));
+        }).start();
+    }
+
     public void switchToScene1(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("scene1.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -31,6 +82,7 @@ public class HelloNEWController {
         stage.setScene(scene);
         stage.show();
     }
+
     public void switchToScene2(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("scene1_1.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -38,62 +90,31 @@ public class HelloNEWController {
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
-    private TextField courseNameField;
 
-    @FXML
-    private TextField courseCreditField;
-
-    @FXML
-    private TextField teacher1Field;
-
-    @FXML
-    private TextField teacher2Field;
-
-    @FXML
-    private ChoiceBox<String> gradeChoiceBox;
-
-    // Left-side list of records
-    @FXML
-    private ListView<String> sampleListView;
-
-    // Bottom CGPA label
-    @FXML
-    private Label cgpaLabel;
-
-    // Called automatically after FXML is loaded
-    @FXML
-    private void initialize() {
-        if (gradeChoiceBox != null && gradeChoiceBox.getItems().isEmpty()) {
-            gradeChoiceBox.getItems().addAll("A+","A","A-","B+","B","B-","C","F");
-            gradeChoiceBox.setValue("A");
-        }
+    public void switchToScene3(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("scene3.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    // Save button: store current form values into ListView
     @FXML
     private void onSaveClicked(ActionEvent event) {
-        if (sampleListView == null) return;
-
-        String name   = courseNameField.getText();
+        String name = courseNameField.getText();
         String credit = courseCreditField.getText();
-        String t1     = teacher1Field.getText();
-        String t2     = teacher2Field.getText();
-        String grade  = gradeChoiceBox.getValue();
+        String roll = rollField.getText();
+        String t1 = teacher1Field.getText();
+        String t2 = teacher2Field.getText();
+        String grade = gradeChoiceBox.getValue();
+        if (roll == null || roll.isEmpty()) return;
+        if ((name == null || name.isEmpty()) && (credit == null || credit.isEmpty())) return;
+        dbHelper.insertRecord(name, credit, roll, t1, t2, grade);
+        loadRollData(roll);
+        clearCourseInputs();
+    }
 
-        // Skip empty record
-        if ((name == null || name.isEmpty()) &&
-                (credit == null || credit.isEmpty())) {
-            return;
-        }
-
-        String line = String.format(
-                "%s, Cr: %s, T1: %s, T2: %s, Grade: %s",
-                name, credit, t1, t2, grade
-        );
-        sampleListView.getItems().add(line);
-
-        // Optionally clear inputs after save
+    private void clearCourseInputs() {
         courseNameField.clear();
         courseCreditField.clear();
         teacher1Field.clear();
@@ -101,62 +122,67 @@ public class HelloNEWController {
         gradeChoiceBox.setValue("A");
     }
 
-    // Calculate button: compute CGPA from items in ListView
+    @FXML
+    private void onDeleteClicked(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Delete Records");
+        dialog.setHeaderText("Delete all records for a roll");
+        dialog.setContentText("Enter roll:");
+        String roll = dialog.showAndWait().orElse("");
+        if (roll == null || roll.isEmpty()) return;
+        dbHelper.deleteByRoll(roll);
+        observableRecords.clear();
+        cgpaLabel.setText("0.00");
+    }
+
+    @FXML
+    private void onsearchClicked(ActionEvent actionEvent) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Search Records");
+        dialog.setHeaderText("Search records by roll");
+        dialog.setContentText("Enter roll:");
+        String roll = dialog.showAndWait().orElse("");
+        if (roll == null || roll.isEmpty()) return;
+        new Thread(() -> {
+            ObservableList<String> results = dbHelper.searchRecordsByRoll(roll);
+            Platform.runLater(() -> observableRecords.setAll(results));
+        }).start();
+    }
+
+    @FXML
+    private void onRefreshClicked(ActionEvent event) {
+        String roll = rollField.getText();
+        observableRecords.clear();
+        cgpaLabel.setText("0.00");
+        clearCourseInputs();
+        if (roll != null && !roll.isEmpty()) {
+            loadRollData(roll);
+        }
+    }
+
     @FXML
     private void onCalculateClicked(ActionEvent event) {
-        if (sampleListView == null || cgpaLabel == null) return;
-
-        double totalPoints = 0.0;
-        double totalCredits = 0.0;
-
-        for (String item : sampleListView.getItems()) {
-            // item format:
-            // "<name>, Cr: <credit>, T1: ..., T2: ..., Grade: <grade>"
-            // very simple parsing by splitting
-            try {
-                String[] parts = item.split(",");
-                // parts[1] like " Cr: 3"
-                String crPart = parts[1].trim();      // "Cr: 3"
-                String[] crSplit = crPart.split(":");
-                double credit = Double.parseDouble(crSplit[1].trim());
-
-                // last part like " Grade: A"
-                String gradePart = parts[parts.length - 1].trim(); // "Grade: A"
-                String[] gSplit = gradePart.split(":");
-                String grade = gSplit[1].trim();
-
-                double gp = gradeToPoint(grade);
-                totalCredits += credit;
-                totalPoints  += gp * credit;
-            } catch (Exception e) {
-                // ignore badly formatted items
-            }
-        }
-
-        double cgpa = 0.0;
-        if (totalCredits > 0) {
-            cgpa = totalPoints / totalCredits;
-        }
+        String roll = rollField.getText();
+        if (roll == null || roll.isEmpty()) return;
+        double cgpa = dbHelper.calculateCgpaForRoll(roll);
         cgpaLabel.setText(String.format("%.2f", cgpa));
     }
 
-    // Optional: not used yet
     @FXML
-    private void onUpdateClicked(ActionEvent event) {
-        // You can implement editing of selected ListView item if needed
-    }
-
-    @FXML
-    private void onDeleteClicked(ActionEvent event) {
-        if (sampleListView != null) {
-            int index = sampleListView.getSelectionModel().getSelectedIndex();
-            if (index >= 0) {
-                sampleListView.getItems().remove(index);
-            }
+    private void onCalculateScene3(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Calculate CGPA");
+        dialog.setHeaderText("Enter roll to calculate CGPA");
+        dialog.setContentText("Roll:");
+        String roll = dialog.showAndWait().orElse("");
+        if (roll == null || roll.isEmpty()) return;
+        loadRollData(roll);
+        double cgpa = dbHelper.calculateCgpaForRoll(roll);
+        if (cgpaLabel != null) {
+            cgpaLabel.setText(String.format("%.2f", cgpa));
         }
     }
 
-    // Convert letter grade to grade point
     private double gradeToPoint(String grade) {
         if (grade == null) return 0.0;
         return switch (grade) {
