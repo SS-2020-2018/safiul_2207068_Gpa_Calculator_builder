@@ -80,16 +80,6 @@ public class DatabaseHelper {
         }
     }
 
-    public void deleteRecord(int id) {
-        String sql = "DELETE FROM records WHERE id=?";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-        }
-    }
-
     public void deleteByRoll(String roll) {
         String sql = "DELETE FROM records WHERE roll = ?";
         try (Connection conn = getConnection();

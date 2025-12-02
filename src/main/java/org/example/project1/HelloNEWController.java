@@ -161,14 +161,6 @@ public class HelloNEWController {
     }
 
     @FXML
-    private void onCalculateClicked(ActionEvent event) {
-        String roll = rollField.getText();
-        if (roll == null || roll.isEmpty()) return;
-        double cgpa = dbHelper.calculateCgpaForRoll(roll);
-        cgpaLabel.setText(String.format("%.2f", cgpa));
-    }
-
-    @FXML
     private void onCalculateScene3(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Calculate CGPA");
@@ -183,18 +175,4 @@ public class HelloNEWController {
         }
     }
 
-    private double gradeToPoint(String grade) {
-        if (grade == null) return 0.0;
-        return switch (grade) {
-            case "A+" -> 4.0;
-            case "A"  -> 3.75;
-            case "A-" -> 3.5;
-            case "B+" -> 3.25;
-            case "B"  -> 3.0;
-            case "B-" -> 2.75;
-            case "C"  -> 2.5;
-            case "F"  -> 0.0;
-            default   -> 0.0;
-        };
-    }
 }
